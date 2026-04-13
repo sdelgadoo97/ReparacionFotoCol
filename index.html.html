@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Servicio Técnico de Impresoras y Fotocopiadoras</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f3; color: #1a1a18; }
+
+    /* HERO */
+    .hero { position: relative; background: url('/Resources/Portada_Landing.png'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 4rem 1.5rem 3rem; text-align: center; color: #fff; }
+    .hero::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; backdrop-filter: blur(5px); background: rgba(0,0,0,0.4); z-index: 0; }
+    .hero * { position: relative; z-index: 1; }
+    /* .hero { background: url('/Resources/Portada_Landing.png'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 4rem 1.5rem 3rem; text-align: center; color: #fff; } */
+    .hero-badge { display: inline-block; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35); border-radius: 20px; font-size: 13px; padding: 5px 16px; margin-bottom: 1.25rem; letter-spacing: 0.04em; }
+    .hero h1 { font-size: clamp(24px, 5vw, 42px); font-weight: 600; line-height: 1.2; margin-bottom: 1rem; }
+    .hero p { font-size: 16px; opacity: 0.88; max-width: 540px; margin: 0 auto 2rem; line-height: 1.65; }
+    .hero-cta { display: inline-flex; align-items: center; gap: 9px; background: #25D366; color: #fff; font-size: 16px; font-weight: 600; padding: 14px 32px; border-radius: 50px; text-decoration: none; cursor: pointer; border: none; transition: background 0.2s; }
+    .hero-cta:hover { background: #1ebe5d; }
+
+    /* BRANDS */
+    .brands { background: #fff; padding: 1.25rem 1.5rem; border-bottom: 1px solid #e5e5e0; }
+    .brands-inner { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px 16px; max-width: 700px; margin: 0 auto; }
+    .brand-label { font-size: 12px; color: #888780; margin-right: 4px; }
+    .brand-chip { font-size: 13px; font-weight: 500; color: #5F5E5A; border: 1px solid #D3D1C7; border-radius: 8px; padding: 5px 14px; background: #F1EFE8; }
+
+    /* SECTIONS */
+    .section { padding: 3rem 1.5rem; max-width: 880px; margin: 0 auto; }
+    .section-label { font-size: 12px; letter-spacing: 0.08em; color: #185FA5; font-weight: 600; margin-bottom: 0.4rem; text-transform: uppercase; }
+    .section-title { font-size: clamp(20px, 4vw, 28px); font-weight: 600; color: #1a1a18; margin-bottom: 0.5rem; }
+    .section-sub { font-size: 15px; color: #5F5E5A; margin-bottom: 2rem; line-height: 1.65; }
+
+    /* URGENCY */
+    .urgency-card { background: #FCEBEB; border: 1px solid #F09595; border-radius: 12px; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 16px; margin-bottom: 1.75rem; cursor: pointer; transition: border-color 0.2s; }
+    .urgency-card:hover { border-color: #E24B4A; }
+    .urgency-dot { width: 10px; height: 10px; background: #E24B4A; border-radius: 50%; flex-shrink: 0; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .urgency-card h4 { font-size: 15px; font-weight: 600; color: #791F1F; margin-bottom: 3px; }
+    .urgency-card p { font-size: 13px; color: #A32D2D; line-height: 1.45; }
+    .urgency-btn { margin-left: auto; background: #E24B4A; color: #fff; font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 8px; border: none; cursor: pointer; flex-shrink: 0; white-space: nowrap; transition: background 0.2s; }
+    .urgency-btn:hover { background: #c93a39; }
+
+    /* SERVICES GRID */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 2rem; }
+    .service-card { background: #fff; border: 1px solid #e5e5e0; border-radius: 12px; padding: 1.25rem; cursor: pointer; transition: border-color 0.2s, transform 0.15s; }
+    .service-card:hover { border-color: #378ADD; transform: translateY(-2px); }
+    .svc-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.85rem; }
+    .svc-icon.blue   { background: #E6F1FB; }
+    .svc-icon.green  { background: #EAF3DE; }
+    .svc-icon.amber  { background: #FAEEDA; }
+    .svc-icon.coral  { background: #FAECE7; }
+    .svc-icon.teal   { background: #E1F5EE; }
+    .svc-icon.purple { background: #EEEDFE; }
+    .service-card h3 { font-size: 14px; font-weight: 600; color: #1a1a18; margin-bottom: 5px; }
+    .service-card p  { font-size: 13px; color: #888780; line-height: 1.5; }
+
+    /* CTA CARD */
+    .cta-card { background: linear-gradient(135deg, #0C447C, #185FA5); border-radius: 14px; padding: 2.25rem 2rem; text-align: center; margin-bottom: 0; }
+    .cta-card h3 { color: #fff; font-size: 20px; font-weight: 600; margin-bottom: 0.6rem; }
+    .cta-card p  { color: rgba(255,255,255,0.82); font-size: 14px; margin-bottom: 1.5rem; line-height: 1.55; }
+    .cta-card .btn-wa { display: inline-flex; align-items: center; gap: 9px; background: #25D366; color: #fff; font-size: 15px; font-weight: 600; padding: 13px 28px; border-radius: 50px; border: none; cursor: pointer; transition: background 0.2s; }
+    .cta-card .btn-wa:hover { background: #1ebe5d; }
+
+    /* DIVIDER */
+    .divider { height: 1px; background: #e5e5e0; }
+
+    /* INSUMOS */
+    .insumos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 2rem; }
+    .insumo-chip { background: #fff; border: 1px solid #e5e5e0; border-radius: 8px; padding: 12px 14px; font-size: 13px; font-weight: 500; color: #1a1a18; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+    .insumo-chip:hover { border-color: #378ADD; background: #E6F1FB; color: #0C447C; }
+
+    /* CONTACT STRIP */
+    .contact-strip { background: #fff; padding: 2.5rem 1.5rem; text-align: center; border-top: 1px solid #e5e5e0; border-bottom: 1px solid #e5e5e0; }
+    .contact-strip h3 { font-size: 18px; font-weight: 600; margin-bottom: 0.5rem; }
+    .contact-strip p { font-size: 14px; color: #5F5E5A; margin-bottom: 1.5rem; }
+    .contact-btns { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .btn-outline { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 500; padding: 10px 20px; border-radius: 50px; border: 1px solid #D3D1C7; background: #fff; color: #1a1a18; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+    .btn-outline:hover { background: #F1EFE8; border-color: #B4B2A9; }
+    .btn-green { background: #25D366 !important; color: #fff !important; border-color: #25D366 !important; }
+    .btn-green:hover { background: #1ebe5d !important; border-color: #1ebe5d !important; }
+
+    /* FOOTER */
+    footer { padding: 1.5rem 1.5rem; text-align: center; background: #F1EFE8; }
+    footer p { font-size: 12px; color: #888780; line-height: 1.7; }
+    footer strong { color: #5F5E5A; }
+
+    /* SVG ICONS */
+    svg.ico { width: 20px; height: 20px; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+    @media (max-width: 480px) {
+      .urgency-card { flex-wrap: wrap; }
+      .urgency-btn { width: 100%; text-align: center; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ====== HERO ====== -->
+<header class="hero">
+  <div class="hero-badge">Servicio técnico especializado</div>
+  <h1>Reparación y mantenimiento<br>de impresoras y fotocopiadoras</h1>
+  <p>Soluciones rápidas y confiables para tu equipo de oficina. Atendemos marcas Ricoh, Toshiba, Canon, Epson y HP.</p>
+  <button class="hero-cta" onclick="openWA('Hola, necesito información sobre reparación de impresoras')">
+    <svg class="ico" style="stroke:#fff" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    Solicitar servicio por WhatsApp
+  </button>
+</header>
+
+<!-- ====== MARCAS ====== -->
+<div class="brands">
+  <div class="brands-inner">
+    <span class="brand-label">Marcas que atendemos:</span>
+    <span class="brand-chip">Ricoh</span>
+    <span class="brand-chip">Toshiba</span>
+    <span class="brand-chip">Canon</span>
+    <span class="brand-chip">Epson</span>
+    <span class="brand-chip">HP</span>
+  </div>
+</div>
+
+<!-- ====== SERVICIOS ====== -->
+<main>
+<section class="section">
+  <p class="section-label">Nuestros servicios</p>
+  <h2 class="section-title">¿En qué podemos ayudarte?</h2>
+  <p class="section-sub">Contamos con técnicos certificados y repuestos originales para todo tipo de equipos.</p>
+
+  <!-- Urgencia -->
+  <div class="urgency-card" onclick="openWA('Necesito una reparación de urgencia para mi impresora')">
+    <div class="urgency-dot"></div>
+    <div>
+      <h4>Reparación de urgencia</h4>
+      <p>Tu equipo no puede esperar. Atención prioritaria el mismo día.</p>
+    </div>
+    <button class="urgency-btn">Solicitar ya</button>
+  </div>
+
+  <!-- Tarjetas de servicios -->
+  <div class="services-grid">
+    <div class="service-card" onclick="openWA('Quiero agendar una reparación programada para mi equipo')">
+      <div class="svc-icon blue">
+        <svg class="ico" style="stroke:#185FA5" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <h3>Reparación programada</h3>
+      <p>Agenda el servicio en el horario que más te convenga.</p>
+    </div>
+    <div class="service-card" onclick="openWA('Me interesa el mantenimiento preventivo para mis equipos')">
+      <div class="svc-icon teal">
+        <svg class="ico" style="stroke:#0F6E56" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Mantenimiento preventivo</h3>
+      <p>Evita fallas costosas con revisiones periódicas.</p>
+    </div>
+    <div class="service-card" onclick="openWA('Quiero cotizar insumos y consumibles para mi impresora')">
+      <div class="svc-icon amber">
+        <svg class="ico" style="stroke:#854F0B" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      </div>
+      <h3>Venta de insumos</h3>
+      <p>Tóner, tinta, cartuchos y drums originales y compatibles.</p>
+    </div>
+    <div class="service-card" onclick="openWA('Necesito cotizar repuestos para mi impresora o fotocopiadora')">
+      <div class="svc-icon coral">
+        <svg class="ico" style="stroke:#993C1D" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      </div>
+      <h3>Venta de repuestos</h3>
+      <p>Piezas y componentes para las principales marcas.</p>
+    </div>
+    <div class="service-card" onclick="openWA('Me interesa comprar una impresora o fotocopiadora')">
+      <div class="svc-icon green">
+        <svg class="ico" style="stroke:#3B6D11" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      </div>
+      <h3>Venta de equipos</h3>
+      <p>Impresoras y fotocopiadoras nuevas y reacondicionadas.</p>
+    </div>
+    <div class="service-card" onclick="openWA('Quiero información sobre contratos de mantenimiento')">
+      <div class="svc-icon purple">
+        <svg class="ico" style="stroke:#534AB7" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <h3>Contratos de servicio</h3>
+      <p>Planes mensuales con cobertura total para tu empresa.</p>
+    </div>
+  </div>
+
+  <!-- CTA Presupuesto -->
+  <div class="cta-card">
+    <h3>¿Necesitas un presupuesto?</h3>
+    <p>Cuéntanos el problema de tu equipo y te respondemos en minutos con un diagnóstico sin costo.</p>
+    <button class="btn-wa" onclick="openWA('Hola, necesito un presupuesto para reparación de mi equipo')">
+      <svg class="ico" style="stroke:#fff" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Pedir presupuesto gratis
+    </button>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ====== INSUMOS ====== -->
+<section class="section" style="padding-top:2.5rem; padding-bottom:2.5rem;">
+  <p class="section-label">Insumos y consumibles</p>
+  <h2 class="section-title">Tenemos lo que necesitas</h2>
+  <p class="section-sub">Stock permanente de consumibles para todas las marcas que manejamos.</p>
+  <div class="insumos-grid">
+    <div class="insumo-chip" onclick="openWA('Necesito tóner para mi impresora, ¿tienen disponible?')">Tóner</div>
+    <div class="insumo-chip" onclick="openWA('Necesito cartuchos de tinta, ¿qué referencias tienen?')">Cartuchos de tinta</div>
+    <div class="insumo-chip" onclick="openWA('Necesito drums o fotoconductores, ¿tienen disponible?')">Drums / fotoconductores</div>
+    <div class="insumo-chip" onclick="openWA('Necesito kits de mantenimiento para mi impresora')">Kits de mantenimiento</div>
+    <div class="insumo-chip" onclick="openWA('Necesito papel especial o soportes de impresión')">Papel especial</div>
+    <div class="insumo-chip" onclick="openWA('Necesito fusores o rodillos de transferencia')">Fusores y rodillos</div>
+  </div>
+  <div style="text-align:center;">
+    <button class="hero-cta" style="font-size:14px;padding:11px 26px;" onclick="openWA('Hola, quiero cotizar insumos para mi equipo')">
+      <svg class="ico" style="stroke:#fff" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Consultar disponibilidad
+    </button>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ====== CONTACTO ====== -->
+<div class="contact-strip">
+  <h3>¿Listo para solucionar tu problema?</h3>
+  <p>Contáctanos por el canal que prefieras, estamos disponibles para atenderte.</p>
+  <div class="contact-btns">
+    <button class="btn-outline btn-green" onclick="openWA('Hola, quiero más información sobre sus servicios')">
+      <svg class="ico" style="stroke:#fff" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      WhatsApp
+    </button>
+    <button class="btn-outline" onclick="openWA('Hola, quiero consultar sobre reparación de urgencia')">
+      <svg class="ico" style="stroke:#1a1a18" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.64 3.42 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Llamar
+    </button>
+    <button class="btn-outline" onclick="openWA('Hola, quisiera hacer una consulta')">
+      <svg class="ico" style="stroke:#1a1a18" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Correo
+    </button>
+    <button class="btn-outline" onclick="openWA('Hola, quiero cotizar equipos nuevos o reacondicionados')">
+      <svg class="ico" style="stroke:#1a1a18" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      Cotizar equipo
+    </button>
+  </div>
+</div>
+</main>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+  <p>
+    <strong>Servicio técnico especializado en impresoras y fotocopiadoras</strong><br>
+    Ricoh · Toshiba · Canon · Epson · HP<br>
+    Reparación · Mantenimiento · Insumos · Repuestos · Venta de equipos
+  </p>
+</footer>
+
+<script>
+  // ⚠️ CAMBIA ESTE NÚMERO por el tuyo en formato internacional
+  // Colombia: 57 + número sin el 0 inicial. Ejemplo: 573105551234
+  const WP_NUMBER = "573143730436";
+
+  function openWA(msg) {
+    const url = "https://wa.me/" + WP_NUMBER + "?text=" + encodeURIComponent(msg);
+    window.open(url, "_blank");
+  }
+</script>
+
+</body>
+</html>
